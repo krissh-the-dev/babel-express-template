@@ -1,8 +1,9 @@
 {
-  "name": "backend",
-  "version": "0.1.0",
-  "description": "",
-  "main": "server.js",
+  "name": "my-app-backend",
+  "version": "0.0.1",
+  "description": "This is the backend for my-app",
+  "main": "build/server.js",
+  "module": "src/server.js",
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js",
     "build": "babel src --out-dir build",
