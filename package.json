@@ -5,8 +5,12 @@
   "main": "build/server.js",
   "module": "src/server.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js",
     "build": "babel src --out-dir build",
+    "dev": "nodemon --exec babel-node src/server.js",
+    "format": "prettier --write \"**/*.{js,jsx,html,scss}\"",
+    "format:check": "prettier -c \"**/*.{js,jsx,html,scss}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "npm run lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
