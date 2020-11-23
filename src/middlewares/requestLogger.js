@@ -47,12 +47,18 @@ export default morgan((tokens, req, res) => {
     length = chalk.yellow(length + 'B');
   } else if (length >= 3000) {
     length = chalk.red(length + 'B');
+  } else if (!length) {
+    length = '-';
+  } else {
+    length += 'B';
   }
 
   if (resTime >= 500 && resTime < 1000) {
     resTime = chalk.yellow(resTime + 'ms');
   } else if (resTime >= 1000) {
     resTime = chalk.red(resTime + 'ms');
+  } else {
+    resTime += 'ms';
   }
 
   return `[${time}] ${status} | ${method} ${url} > ${length} | ${resTime}`;
