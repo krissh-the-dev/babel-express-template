@@ -7,7 +7,7 @@ const server = express();
 // Request logging: refer - https://www.npmjs.com/package/morgan
 server.use(requestLogger);
 
-server.get('/', (req, res) => {
+server.get('/', async (req, res) => {
   /* Write your code */
   res.sendStatus(200);
 });

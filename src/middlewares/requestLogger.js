@@ -43,15 +43,17 @@ export default morgan((tokens, req, res) => {
       break;
   }
 
-  if (length > 600) {
-    length = chalk.yellow(length);
-  } else if (length > 1500) {
-    length = chalk.red(length);
+  if (length >= 600 && length < 3000) {
+    length = chalk.yellow(length + 'B');
+  } else if (length >= 3000) {
+    length = chalk.red(length + 'B');
   }
 
-  if (resTime > 100) {
-    resTime = chalk.red(resTime);
+  if (resTime >= 500 && resTime < 1000) {
+    resTime = chalk.yellow(resTime + 'ms');
+  } else if (resTime >= 1000) {
+    resTime = chalk.red(resTime + 'ms');
   }
 
-  return `[${time}] ${status} | ${method} ${url} > ${length} B | ${resTime} ms`;
+  return `[${time}] ${status} | ${method} ${url} > ${length} | ${resTime}`;
 });
