@@ -1,13 +1,15 @@
 import express from 'express';
-import morgan from 'morgan';
+
+import { requestLogger } from './middlewares';
 
 const server = express();
 
 // Request logging: refer - https://www.npmjs.com/package/morgan
-server.use(morgan('tiny'));
+server.use(requestLogger);
 
 server.get('/', (req, res) => {
-  // write code
+  /* Write your code */
+  res.sendStatus(200);
 });
 
 server.listen(5000, () => {
