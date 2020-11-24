@@ -8,7 +8,7 @@ import { requestLogger } from './middlewares';
 const PORT = process.env.PORT || 5000;
 Logger.useDefaults({
   defaultLevel: process.env.NODE_ENV === 'production' ? Logger.ERROR : Logger.INFO,
-  formatter: (messages, context) => {
+  formatter: messages => {
     messages.unshift(`[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString()}]`);
   }
 });
@@ -16,7 +16,7 @@ const server = express();
 
 server.use(requestLogger);
 
-server.get('/', (req, res) => {
+server.get('*', (_req, res) => {
   res.sendStatus(200);
 });
 
