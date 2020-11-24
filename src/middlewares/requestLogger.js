@@ -49,7 +49,7 @@ export default morgan((tokens, req, res) => {
   } else if (length >= 3000) {
     length = chalk.red(length + 'B');
   } else if (!length) {
-    length = '-';
+    length = '0B';
   } else {
     length += 'B';
   }
@@ -62,5 +62,5 @@ export default morgan((tokens, req, res) => {
     resTime += 'ms';
   }
 
-  return `[${date} ${time}] ${status} | ${method} ${url} > ${length} | ${resTime}`;
+  return `[${date} ${time}] ${status} | ${method} ${url} ${length} | ${resTime}`;
 });
