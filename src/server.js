@@ -6,8 +6,12 @@ import 'dotenv/config';
 import { requestLogger } from './middlewares';
 
 const PORT = process.env.PORT || 5000;
-Logger.useDefaults();
-Logger.setLevel(process.env.NODE_ENV === 'production' ? Logger.ERROR : Logger.INFO);
+Logger.useDefaults({
+  defaultLevel: process.env.NODE_ENV === 'production' ? Logger.ERROR : Logger.INFO,
+  formatter: (messages, context) => {
+    messages.unshift(`[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString()}]`);
+  }
+});
 const server = express();
 
 server.use(requestLogger);

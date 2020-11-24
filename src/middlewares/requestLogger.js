@@ -8,6 +8,7 @@ export default morgan((tokens, req, res) => {
   let length = tokens.res(req, res, 'content-length');
   let resTime = tokens['response-time'](req, res);
   let time = new Date(tokens.date(req, res)).toLocaleTimeString();
+  let date = new Date(tokens.date(req, res)).toLocaleDateString('en-GB');
 
   if (status < 200) {
     status = chalk.gray.bold(status);
@@ -61,5 +62,5 @@ export default morgan((tokens, req, res) => {
     resTime += 'ms';
   }
 
-  return `[${time}] ${status} | ${method} ${url} > ${length} | ${resTime}`;
+  return `[${date} ${time}] ${status} | ${method} ${url} > ${length} | ${resTime}`;
 });
