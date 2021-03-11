@@ -62,5 +62,5 @@ export default morgan((tokens, req, res) => {
 		resTime += 'ms';
 	}
 
-	return `[${date} ${time}] ${status} | ${method} ${url} ${length} | ${resTime}`;
+	return `[${date} ${time}] ${status} | ${method} ${url} | ${length}, ${resTime}`;
 });
