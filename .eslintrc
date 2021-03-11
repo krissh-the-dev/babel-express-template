@@ -1,6 +1,7 @@
 {
   "env": {
-    "browser": true,
+    "browser": false,
+    "node": true,
     "es2021": true
   },
   "extends": "eslint:recommended",
@@ -9,8 +10,6 @@
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["warn", "tab"],
-    "linebreak-style": ["warn", "unix"],
     "quotes": ["warn", "single"],
     "semi": ["warn", "always"]
   }
