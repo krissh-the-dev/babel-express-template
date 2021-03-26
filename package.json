@@ -1,37 +1,38 @@
 {
-  "name": "my-app-backend",
-  "version": "0.0.1",
-  "description": "This is the backend for my-app",
-  "main": "build/server.js",
-  "module": "src/server.js",
-  "scripts": {
-    "build": "babel src --out-dir build",
-    "dev": "nodemon --exec babel-node src/server.js",
-    "format": "prettier --write \"**/*.{js,mjs}\"",
-    "format:check": "prettier -c \"**/*.{js,mjs}\"",
-    "lint": "eslint \"src/**/*.{js,mjs}\"",
-    "lint:fix": "npm run lint -- --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@babel/runtime": "^7.13.10",
-    "chalk": "^4.1.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "js-logger": "^1.6.1",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/node": "^7.13.12",
-    "@babel/plugin-transform-runtime": "^7.13.10",
-    "@babel/preset-env": "^7.13.12",
-    "eslint": "^7.22.0",
-    "nodemon": "^2.0.7",
-    "prettier": "^2.2.1"
-  }
+	"name": "my-app-backend",
+	"version": "0.0.1",
+	"description": "This is the backend for my-app",
+	"main": "build/server.js",
+	"module": "src/server.js",
+	"scripts": {
+		"build": "babel src --out-dir build",
+		"dev": "nodemon --exec babel-node src/server.js",
+		"start": "nodemon build/server.js",
+		"format": "prettier --write \"**/*.{js,mjs}\"",
+		"format:check": "prettier -c \"**/*.{js,mjs}\"",
+		"lint": "eslint \"src/**/*.{js,mjs}\"",
+		"lint:fix": "npm run lint -- --fix",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@babel/runtime": "^7.13.10",
+		"chalk": "^4.1.0",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"js-logger": "^1.6.1",
+		"morgan": "^1.10.0"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.13.10",
+		"@babel/core": "^7.13.10",
+		"@babel/node": "^7.13.12",
+		"@babel/plugin-transform-runtime": "^7.13.10",
+		"@babel/preset-env": "^7.13.12",
+		"eslint": "^7.22.0",
+		"nodemon": "^2.0.7",
+		"prettier": "^2.2.1"
+	}
 }
