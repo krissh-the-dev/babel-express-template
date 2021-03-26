@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || '127.0.0.1';
 
 Logger.useDefaults({
-	defaultLevel: process.env.NODE_ENV === 'production' ? Logger.ERROR : Logger.INFO,
+	defaultLevel: process.env.NODE_ENV === 'production' ? Logger.WARN : Logger.DEBUG,
 	formatter: messages => {
 		messages.unshift(
 			`[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString()}]`
