@@ -2,6 +2,7 @@ import express from 'express';
 import Logger from 'js-logger';
 import chalk from 'chalk';
 import 'dotenv/config';
+import { StatusCodes } from 'http-status-codes';
 
 import { requestLogger } from 'middlewares';
 
@@ -22,7 +23,7 @@ const app = express();
 app.use(requestLogger);
 
 app.get('*', (_req, res) => {
-	res.sendStatus(200);
+	res.sendStatus(StatusCodes.OK);
 });
 
 const server = app.listen(PORT, HOST);
