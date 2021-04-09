@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import 'dotenv/config';
 import { StatusCodes } from 'http-status-codes';
 
-import { requestLogger } from 'middlewares';
+import { rateLimiter, requestLogger } from 'middlewares';
 
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -21,6 +21,7 @@ Logger.useDefaults({
 const app = express();
 
 app.use(requestLogger);
+app.use(rateLimiter);
 
 app.get('*', (_req, res) => {
 	res.sendStatus(StatusCodes.OK);
