@@ -2,65 +2,100 @@ import morgan from 'morgan';
 import chalk from 'chalk';
 
 export default morgan((tokens, req, res) => {
-	let status = tokens.status(req, res);
-	let method = tokens.method(req, res);
-	let url = tokens.url(req, res);
-	let length = tokens.res(req, res, 'content-length');
-	let resTime = tokens['response-time'](req, res);
-	let time = new Date(tokens.date(req, res)).toLocaleTimeString('en-US');
-	let date = new Date(tokens.date(req, res)).toLocaleDateString('en-GB');
+	let {
+		statusCode,
+		methodName,
+		requestURL,
+		responseLength,
+		responseTime,
+		time,
+		date
+	} = extractAttributes(tokens, req, res);
 
-	if (status < 200) {
-		status = chalk.gray.bold(status);
-	} else if (status < 300) {
-		status = chalk.green.bold(status);
-	} else if (status < 400) {
-		status = chalk.cyan.bold(status);
-	} else if (status < 500) {
-		status = chalk.yellow.bold(status);
+	const coloredStatus = colorizeStatusCodes(statusCode);
+	const coloredMethod = colorizeMethod(methodName);
+	const coloredLengthInBytes = customizeLength(responseLength);
+	const coloredResponseTime = customizeResponseTime(responseTime);
+
+	return `[${date} ${time}] ${coloredStatus} | ${coloredMethod} ${requestURL} | ${coloredLengthInBytes}, ${coloredResponseTime}`;
+});
+
+function extractAttributes(tokens, req, res) {
+	const statusCode = tokens.status(req, res);
+	const methodName = tokens.method(req, res);
+	const requestURL = tokens.url(req, res);
+	const responseLength = tokens.res(req, res, 'content-length');
+	const responseTime = tokens['response-time'](req, res);
+	const time = new Date(tokens.date(req, res)).toLocaleTimeString('en-US');
+	const date = new Date(tokens.date(req, res)).toLocaleDateString('en-GB');
+
+	return { statusCode, methodName, requestURL, responseLength, responseTime, time, date };
+}
+
+function colorizeStatusCodes(statusCode) {
+	let colorizedStatus;
+	if (statusCode < 200) {
+		colorizedStatus = chalk.gray.bold(statusCode);
+	} else if (statusCode < 300) {
+		colorizedStatus = chalk.green.bold(statusCode);
+	} else if (statusCode < 400) {
+		colorizedStatus = chalk.cyan.bold(statusCode);
+	} else if (statusCode < 500) {
+		colorizedStatus = chalk.yellow.bold(statusCode);
 	} else {
-		status = chalk.red.bold(status);
+		colorizedStatus = chalk.red.bold(statusCode);
 	}
+	return colorizedStatus;
+}
 
-	switch (method) {
+function colorizeMethod(methodName) {
+	let colorizedMethod;
+	switch (methodName) {
 		case 'GET':
-			method = chalk.blue(method);
+			colorizedMethod = chalk.blue(methodName);
 			break;
 
 		case 'POST':
 		case 'PUT':
-			method = chalk.magenta(method);
+			colorizedMethod = chalk.magenta(methodName);
 			break;
 
 		case 'PATCH':
-			method = chalk.yellow(method);
+			colorizedMethod = chalk.yellow(methodName);
 			break;
 
 		case 'DELETE':
-			method = chalk.red(method);
+			colorizedMethod = chalk.red(methodName);
 			break;
 
 		default:
 			break;
 	}
+	return colorizedMethod;
+}
 
+function customizeLength(length) {
+	let customizedLength;
 	if (length >= 600 && length < 3000) {
-		length = chalk.yellow(length + 'B');
+		customizedLength = chalk.yellow(length + 'B');
 	} else if (length >= 3000) {
-		length = chalk.red(length + 'B');
+		customizedLength = chalk.red(length + 'B');
 	} else if (!length) {
-		length = '0B';
+		customizedLength = '0B';
 	} else {
-		length += 'B';
+		customizedLength = `${length}B`;
 	}
+	return customizedLength;
+}
 
+function customizeResponseTime(resTime) {
+	let coloredResponseTime;
 	if (resTime >= 500 && resTime < 1000) {
-		resTime = chalk.yellow(resTime + 'ms');
+		coloredResponseTime = chalk.yellow(resTime + 'ms');
 	} else if (resTime >= 1000) {
-		resTime = chalk.red(resTime + 'ms');
+		coloredResponseTime = chalk.red(resTime + 'ms');
 	} else {
-		resTime += 'ms';
+		coloredResponseTime = `${resTime}ms`;
 	}
-
-	return `[${date} ${time}] ${status} | ${method} ${url} | ${length}, ${resTime}`;
-});
+	return coloredResponseTime;
+}
