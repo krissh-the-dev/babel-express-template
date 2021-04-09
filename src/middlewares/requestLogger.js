@@ -7,7 +7,7 @@ export default morgan((tokens, req, res) => {
 	let url = tokens.url(req, res);
 	let length = tokens.res(req, res, 'content-length');
 	let resTime = tokens['response-time'](req, res);
-	let time = new Date(tokens.date(req, res)).toLocaleTimeString();
+	let time = new Date(tokens.date(req, res)).toLocaleTimeString('en-US');
 	let date = new Date(tokens.date(req, res)).toLocaleDateString('en-GB');
 
 	if (status < 200) {

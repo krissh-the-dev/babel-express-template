@@ -13,7 +13,7 @@ Logger.useDefaults({
 	defaultLevel: process.env.NODE_ENV === 'production' ? Logger.WARN : Logger.DEBUG,
 	formatter: messages => {
 		messages.unshift(
-			`[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString()}]`
+			`[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString('en-US')}]`
 		);
 	}
 });
