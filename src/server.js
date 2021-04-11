@@ -21,7 +21,7 @@ Logger.useDefaults({
 
 const app = express();
 
-app.use(requestLogger);
+if (config.get('logRequests')) app.use(requestLogger);
 app.use(rateLimiter);
 
 app.get('*', (_req, res) => {
