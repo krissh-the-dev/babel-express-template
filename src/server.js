@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import Logger from 'js-logger';
 import chalk from 'chalk';
 import config from 'config';
@@ -22,7 +23,10 @@ Logger.useDefaults({
 const app = express();
 
 if (config.get('logRequests')) app.use(requestLogger);
-app.use(rateLimiter);
+if (config.util.getEnv('NODE_ENV') === 'production') {
+	app.use(helmet());
+	app.use(rateLimiter);
+}
 
 app.get('*', (_req, res) => {
 	res.sendStatus(StatusCodes.OK);
