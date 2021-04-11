@@ -1,16 +1,17 @@
 import express from 'express';
 import Logger from 'js-logger';
 import chalk from 'chalk';
+import config from 'config';
 import 'dotenv/config';
 import { StatusCodes } from 'http-status-codes';
 
 import { rateLimiter, requestLogger } from 'middlewares';
 
-const PORT = process.env.PORT || 5000;
-const HOST = process.env.HOST || '127.0.0.1';
+const PORT = config.get('port');
+const HOST = config.get('host');
 
 Logger.useDefaults({
-	defaultLevel: process.env.NODE_ENV === 'production' ? Logger.WARN : Logger.DEBUG,
+	defaultLevel: config.get('loggingLevel'),
 	formatter: messages => {
 		messages.unshift(
 			`[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString('en-US')}]`
