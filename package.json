@@ -7,7 +7,7 @@
 	"scripts": {
 		"build": "babel src --out-dir build",
 		"dev": "nodemon --exec babel-node src/server.js",
-		"start": "nodemon build/server.js",
+		"start": "node build/server.js",
 		"format": "prettier --write \"**/*.{js,mjs}\"",
 		"format:check": "prettier -c \"**/*.{js,mjs}\"",
 		"lint": "eslint \"src/**/*.{js,mjs}\"",
