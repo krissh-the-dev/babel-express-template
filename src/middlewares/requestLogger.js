@@ -1,6 +1,15 @@
 import morgan from 'morgan';
 import chalk from 'chalk';
 
+/**
+ * Request Logging with morgan
+ *
+ * Logs all the requests received and some relevant information, this can be
+ * helpful in development, but it is recommended to turn this off in production
+ * to reduce the  request processing queue length. Using this in production may
+ * affect the performance of your app and slow down your server.
+ */
+
 export default morgan((tokens, req, res) => {
 	let {
 		statusCode,
@@ -21,6 +30,9 @@ export default morgan((tokens, req, res) => {
 });
 
 function extractAttributes(tokens, req, res) {
+	/**
+	 * Extracts required attributes from the request
+	 */
 	const statusCode = tokens.status(req, res);
 	const methodName = tokens.method(req, res);
 	const requestURL = tokens.url(req, res);
@@ -33,6 +45,16 @@ function extractAttributes(tokens, req, res) {
 }
 
 function colorizeStatusCodes(statusCode) {
+	/**
+	 * Adds chalk colors to the status codes:
+	 * Code		|		Color
+	 * 1xx		|		gray
+	 * 2xx		|		green
+	 * 3xx		|		cyan
+	 * 4xx 		|		yellow
+	 * 5xx		|		red
+	 */
+
 	let colorizedStatus;
 	if (statusCode < 200) {
 		colorizedStatus = chalk.gray.bold(statusCode);
@@ -49,6 +71,14 @@ function colorizeStatusCodes(statusCode) {
 }
 
 function colorizeMethod(methodName) {
+	/**
+	 * Adds chalk colors to the Http request methods:
+	 * Method			|		Color
+	 * Get				|		blue
+	 * Post, Put	|		magenta
+	 * patch			|		yellow
+	 * delete 		|		red
+	 */
 	let colorizedMethod;
 	switch (methodName) {
 		case 'GET':
@@ -75,6 +105,12 @@ function colorizeMethod(methodName) {
 }
 
 function customizeLength(length) {
+	/**
+	 * Colorizes length string based on the value and adds 'B' as unit.
+	 * size < 600 => default
+	 * 600 <= size < 3000 => yellow
+	 * size >= 3000 => red
+	 */
 	let customizedLength;
 	if (length >= 600 && length < 3000) {
 		customizedLength = chalk.yellow(length + 'B');
@@ -89,6 +125,12 @@ function customizeLength(length) {
 }
 
 function customizeResponseTime(resTime) {
+	/**
+	 * Colorizes response time string based on the value and adds 'ms' as unit.
+	 * size < 500 => default
+	 * 500 <= size < 1000 => yellow
+	 * size >= 1000 => red
+	 */
 	let coloredResponseTime;
 	if (resTime >= 500 && resTime < 1000) {
 		coloredResponseTime = chalk.yellow(resTime + 'ms');
