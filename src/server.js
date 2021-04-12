@@ -2,11 +2,13 @@ import express from 'express';
 import helmet from 'helmet';
 import Logger from 'js-logger';
 import chalk from 'chalk';
-import config from 'config';
+
+// Must import dotenv config before config
 import 'dotenv/config';
-import { StatusCodes } from 'http-status-codes';
+import config from 'config';
 
 import { rateLimiter, requestLogger } from 'middlewares';
+import { PingRouter } from 'routers';
 
 const PORT = config.get('port');
 const HOST = config.get('host');
@@ -28,9 +30,7 @@ if (config.util.getEnv('NODE_ENV') === 'production') {
 	app.use(rateLimiter);
 }
 
-app.get('*', (_req, res) => {
-	res.sendStatus(StatusCodes.OK);
-});
+app.use('/ping', PingRouter);
 
 const server = app.listen(PORT, HOST);
 
