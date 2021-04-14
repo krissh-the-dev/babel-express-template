@@ -1,5 +1,4 @@
 import express from 'express';
-import Logger from 'js-logger';
 import chalk from 'chalk';
 
 // Must import dotenv config before config
@@ -17,18 +16,8 @@ registerLogging(app);
 registerPreprocessor(app);
 registerRouters(app);
 
-const server = app.listen(PORT, HOST);
-
-server.once('listening', () => {
+const server = app.listen(PORT, HOST, () => {
 	const { address, port } = server.address();
-	Logger.info(`Server started at port ${chalk.magenta(port)}`);
-	Logger.info(`Listening for requests at: ${chalk.cyan(address + ':' + port)}`);
 	logger.info(`Server started at port ${chalk.magenta(port)}`);
 	logger.info(`Listening for requests at: ${chalk.cyan(address + ':' + port)}`);
-});
-
-server.on('error', err => {
-	Logger.error(chalk.red(err.name));
-	Logger.warn(chalk.yellow(err.message));
-	Logger.info(err.stack);
 });
