@@ -1,6 +1,4 @@
-import { DEBUG } from 'js-logger';
-
 module.exports = {
-	loggingLevel: DEBUG,
+	loggingLevel: 'silly',
 	logRequests: true
 };

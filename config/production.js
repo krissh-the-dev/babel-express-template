@@ -1,6 +1,4 @@
-import { ERROR } from 'js-logger';
-
 module.exports = {
-	loggingLevel: ERROR,
+	loggingLevel: 'error',
 	logRequests: false
 };

@@ -6,7 +6,8 @@ import chalk from 'chalk';
 import 'dotenv/config';
 import config from 'config';
 
-import { registerLogging, registerPreprocessor, registerRouters } from 'include';
+import { registerLogging, registerPreprocessor, registerRouters } from 'tools';
+import logger from 'tools/logging';
 
 const PORT = config.get('port');
 const HOST = config.get('host');
@@ -22,6 +23,8 @@ server.once('listening', () => {
 	const { address, port } = server.address();
 	Logger.info(`Server started at port ${chalk.magenta(port)}`);
 	Logger.info(`Listening for requests at: ${chalk.cyan(address + ':' + port)}`);
+	logger.info(`Server started at port ${chalk.magenta(port)}`);
+	logger.info(`Listening for requests at: ${chalk.cyan(address + ':' + port)}`);
 });
 
 server.on('error', err => {
