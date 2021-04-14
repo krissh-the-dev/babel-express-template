@@ -1,5 +1,4 @@
 import express from 'express';
-import helmet from 'helmet';
 import Logger from 'js-logger';
 import chalk from 'chalk';
 
@@ -7,30 +6,15 @@ import chalk from 'chalk';
 import 'dotenv/config';
 import config from 'config';
 
-import { rateLimiter, requestLogger } from 'middlewares';
-import { PingRouter } from 'routers';
+import { registerLogging, registerPreprocessor, registerRouters } from 'include';
 
 const PORT = config.get('port');
 const HOST = config.get('host');
 
-Logger.useDefaults({
-	defaultLevel: config.get('loggingLevel'),
-	formatter: messages => {
-		messages.unshift(
-			`[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString('en-US')}]`
-		);
-	}
-});
-
 const app = express();
-
-if (config.get('logRequests')) app.use(requestLogger);
-if (config.util.getEnv('NODE_ENV') === 'production') {
-	app.use(helmet());
-	app.use(rateLimiter);
-}
-
-app.use('/ping', PingRouter);
+registerLogging(app);
+registerPreprocessor(app);
+registerRouters(app);
 
 const server = app.listen(PORT, HOST);
 
