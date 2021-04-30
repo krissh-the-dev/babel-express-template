@@ -6,7 +6,7 @@
 	"module": "src/server.js",
 	"scripts": {
 		"build": "babel src --out-dir build",
-		"dev": "nodemon --exec babel-node src/server.js",
+		"dev": "nodemon --exec babel-node src/server.js --ignore jsconfig.json",
 		"start": "node build/server.js",
 		"format": "prettier --write \"**/*.{js,mjs}\"",
 		"format:check": "prettier -c \"**/*.{js,mjs}\"",
