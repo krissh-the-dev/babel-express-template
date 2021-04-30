@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { PingRouter } from 'routers';
+import { PingRouter } from '@routers';
 
 export default function registerRouters(app) {
 	app.use('/ping', PingRouter);

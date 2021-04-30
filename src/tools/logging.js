@@ -1,7 +1,6 @@
 import config from 'config';
-
 import winston from 'winston';
-import { requestLogger } from 'middlewares';
+import { requestLogger } from '@middlewares';
 
 const { format, transports } = winston;
 const { combine, colorize, printf, json, prettyPrint, timestamp } = format;

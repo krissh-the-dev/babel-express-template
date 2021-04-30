@@ -5,7 +5,15 @@
 		[
 			"module-resolver",
 			{
-				"root": ["src"]
+				"root": ["."],
+				"alias": {
+					"@": "./src",
+					"@controllers": "./src/controllers",
+					"@middlewares": "./src/middlewares",
+					"@models": "./src/models",
+					"@routers": "./src/routers",
+					"@tools": "./src/tools"
+				}
 			}
 		],
 		["@babel/plugin-syntax-throw-expressions"]

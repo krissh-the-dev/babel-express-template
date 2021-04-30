@@ -1,6 +1,20 @@
 {
 	"compilerOptions": {
-		"baseUrl": "src"
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/"],
+			"@controllers/*": ["src/controllers/"],
+			"@middlewares/*": ["src/middlewares/"],
+			"@models/*": ["src/models/"],
+			"@routers/*": ["src/routers/"],
+			"@tools/*": ["src/tools/*"],
+			"@": ["src"],
+			"@controllers": ["src/controllers"],
+			"@middlewares": ["src/middlewares"],
+			"@models": ["src/models"],
+			"@routers": ["src/routers"],
+			"@tools": ["src/tools"]
+		}
 	},
 	"include": ["src"],
 	"compileOnSave": true

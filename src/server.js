@@ -5,8 +5,8 @@ import chalk from 'chalk';
 import 'dotenv/config';
 import config from 'config';
 
-import { registerLogging, registerPreprocessor, registerRouters } from 'tools';
-import logger from 'tools/logging';
+import { registerLogging, registerPreprocessor, registerRouters } from '@tools';
+import logger from '@tools/logging';
 
 const PORT = config.get('port');
 const HOST = config.get('host');
