@@ -10,7 +10,7 @@
 	"scripts": {
 		"build": "babel src --out-dir build",
 		"dev": "nodemon --exec babel-node src/server.js --ignore jsconfig.json",
-		"start": "node build/server.js",
+		"start": "set NODE_ENV=production && export NODE_ENV=production && node build/server.js",
 		"format": "prettier --write \"**/*.{js,mjs}\"",
 		"format:check": "prettier -c \"**/*.{js,mjs}\"",
 		"lint": "eslint \"src/**/*.{js,mjs}\"",
