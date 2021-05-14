@@ -14,11 +14,10 @@ const prettyConsoleTransport = new transports.Console({
 	format: combine(
 		colorize(),
 		json(),
+		timestamp({ format: 'DD-MMM-YYYY h:mm:ss A' }),
 		printf(info => {
-			const { level, message } = info;
-			return `[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString(
-				'en-US'
-			)}] ${level} | ${message} ${
+			const { level, message, timestamp } = info;
+			return `[${timestamp}] ${level} | ${message} ${
 				level.includes('error') ? chalk.greenBright('\n\t - Stack trace ends here - \n') : ''
 			}`;
 		})
