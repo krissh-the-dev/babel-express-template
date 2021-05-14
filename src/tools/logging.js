@@ -1,5 +1,6 @@
 import config from 'config';
 import winston from 'winston';
+import chalk from 'chalk';
 import { requestLogger } from '@middlewares';
 
 const { format, transports } = winston;
@@ -14,9 +15,12 @@ const prettyConsoleTransport = new transports.Console({
 		colorize(),
 		json(),
 		printf(info => {
+			const { level, message } = info;
 			return `[${new Date().toLocaleDateString('en-GB')} ${new Date().toLocaleTimeString(
 				'en-US'
-			)}] ${info.level} | ${info.message}`;
+			)}] ${level} | ${message} ${
+				level.includes('error') ? chalk.greenBright('\n\t - Stack trace ends here - \n') : ''
+			}`;
 		})
 	)
 });
