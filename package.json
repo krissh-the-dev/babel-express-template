@@ -4,6 +4,9 @@
 	"description": "This is the backend for my-app",
 	"main": "build/server.js",
 	"module": "src/server.js",
+	"requiredVariables": [
+		"SAMPLE"
+	],
 	"scripts": {
 		"build": "babel src --out-dir build",
 		"dev": "nodemon --exec babel-node src/server.js --ignore jsconfig.json",
