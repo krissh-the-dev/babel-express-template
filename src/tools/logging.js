@@ -6,6 +6,10 @@ import { requestLogger } from '@middlewares';
 const { format, transports } = winston;
 const { combine, colorize, printf, json, prettyPrint, timestamp } = format;
 
+/**
+ * Configures morgan request logging and adds the middleware.
+ */
+
 export function registerLogging(app) {
 	if (config.get('logRequests')) app.use(requestLogger);
 }

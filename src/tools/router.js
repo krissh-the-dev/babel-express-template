@@ -1,6 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
 import { PingRouter } from '@routers';
 
+/**
+ * Registers all routes and handles server errors.
+ */
+
 export default function registerRouters(app) {
 	app.use('/ping', PingRouter);
 
