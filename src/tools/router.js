@@ -1,3 +1,4 @@
+import 'express-async-errors';
 import { StatusCodes } from 'http-status-codes';
 import { PingRouter } from '@routers';
 
