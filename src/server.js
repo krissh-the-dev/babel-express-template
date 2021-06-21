@@ -7,9 +7,9 @@ import {
 	registerListener,
 	registerLogging,
 	registerPreprocessor,
-	registerRouters
+	registerRouters,
+	setupDocs
 } from '@tools';
-import setupDocs from '@tools/setupDocs';
 
 const PORT = config.get('port');
 const HOST = config.get('host');
