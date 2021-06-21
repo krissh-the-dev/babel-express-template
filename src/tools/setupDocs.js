@@ -1,17 +1,17 @@
 import swaggerUI from 'swagger-ui-express';
-import { name as appName, description, author, license } from 'package.json';
+import { name as appName, description, license, version } from 'package.json';
 import config from 'config';
 import apiDocs from '@routers/docs.js';
 
 const documentObject = {
 	swagger: '2.0',
-	swaggerDefinition: {
-		info: {
-			title: appName,
-			description,
-			contact: { name: author },
-			license
-		}
+	info: {
+		title: appName,
+		description,
+		license: {
+			name: license
+		},
+		version
 	},
 	paths: apiDocs
 };
