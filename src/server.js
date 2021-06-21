@@ -1,15 +1,15 @@
-import express from 'express';
 import 'dotenv/config';
-import config from 'config';
 
 import {
-	checkEnv,
-	registerListener,
-	registerLogging,
-	registerPreprocessor,
-	registerRouters,
-	setupDocs
+  checkEnv,
+  registerListener,
+  registerLogging,
+  registerPreprocessor,
+  registerRouters,
+  setupDocs
 } from '@tools';
+import config from 'config';
+import express from 'express';
 
 const PORT = config.get('port');
 const HOST = config.get('host');
