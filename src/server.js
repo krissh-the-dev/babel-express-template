@@ -7,7 +7,8 @@ import {
 	registerListener,
 	registerLogging,
 	registerPreprocessor,
-	registerRouters
+	registerRouters,
+	setupDocs
 } from '@tools';
 
 const PORT = config.get('port');
@@ -18,5 +19,6 @@ const app = express();
 registerLogging(app);
 checkEnv();
 registerPreprocessor(app);
+setupDocs(app);
 registerRouters(app);
 registerListener(app, PORT, HOST);
