@@ -1,5 +1,6 @@
 import swaggerUI from 'swagger-ui-express';
 import { name as appName, description, author, license } from 'package.json';
+import config from 'config';
 import apiDocs from '@routers/docs.js';
 
 const documentObject = {
@@ -16,5 +17,6 @@ const documentObject = {
 };
 
 export default function setupDocs(app) {
-	app.use('/docs', swaggerUI.serve, swaggerUI.setup(documentObject));
+	if (config.get('serveDocument'))
+		app.use('/docs', swaggerUI.serve, swaggerUI.setup(documentObject));
 }
