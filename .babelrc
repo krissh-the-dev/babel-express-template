@@ -9,6 +9,7 @@
 				"alias": {
 					"@": "./src",
 					"@controllers": "./src/controllers",
+					"@docs": "./src/docs",
 					"@middlewares": "./src/middlewares",
 					"@models": "./src/models",
 					"@routers": "./src/routers",

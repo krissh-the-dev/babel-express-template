@@ -1,7 +1,7 @@
 import swaggerUI from 'swagger-ui-express';
 import { name as appName, description, license, version } from 'package.json';
 import config from 'config';
-import apiDocs from '@routers/docs.js';
+import docs from '@docs';
 
 const documentObject = {
 	swagger: '2.0',
@@ -13,7 +13,7 @@ const documentObject = {
 		},
 		version
 	},
-	paths: apiDocs
+	paths: docs
 };
 
 export default function setupDocs(app) {
