@@ -11,15 +11,8 @@ import chalk from 'chalk';
  */
 
 export default morgan((tokens, req, res) => {
-	let {
-		statusCode,
-		methodName,
-		requestURL,
-		responseLength,
-		responseTime,
-		time,
-		date
-	} = extractAttributes(tokens, req, res);
+	let { statusCode, methodName, requestURL, responseLength, responseTime, time, date } =
+		extractAttributes(tokens, req, res);
 
 	const coloredStatus = colorizeStatusCodes(statusCode);
 	const coloredMethod = colorizeMethod(methodName);
