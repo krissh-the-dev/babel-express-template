@@ -8,13 +8,13 @@
 			"@middlewares/*": ["src/middlewares/"],
 			"@models/*": ["src/models/"],
 			"@routers/*": ["src/routers/"],
-			"@tools/*": ["src/helpers/*"],
+			"@tools/*": ["src/tools/*"],
 			"@controllers": ["src/controllers"],
 			"@helpers": ["src/helpers"],
 			"@middlewares": ["src/middlewares"],
 			"@models": ["src/models"],
 			"@routers": ["src/routers"],
-			"@tools": ["src/helpers"]
+			"@tools": ["src/tools"]
 		}
 	},
 	"include": ["src"],
