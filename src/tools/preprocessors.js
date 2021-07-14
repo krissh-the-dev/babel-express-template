@@ -7,6 +7,7 @@ import { rateLimiter } from '@middlewares';
  */
 
 export default function registerPreprocessor(app) {
+	app.disable('x-powered-by');
 	if (config.util.getEnv('NODE_ENV') === 'production') {
 		app.use(helmet());
 		app.use(rateLimiter);
