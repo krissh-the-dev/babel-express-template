@@ -9,8 +9,8 @@
 	],
 	"scripts": {
 		"build": "babel src --out-dir build",
-		"dev": "nodemon --exec babel-node src/server.js --ignore jsconfig.json",
-		"start": "node build/server.js",
+		"dev": "nodemon --exec babel-node src/index.js --ignore jsconfig.json",
+		"start": "node build/index.js",
 		"format": "prettier --write \"**/*.{js,mjs}\"",
 		"format:check": "prettier -c \"**/*.{js,mjs}\"",
 		"lint": "eslint \"src/**/*.{js,mjs}\"",
