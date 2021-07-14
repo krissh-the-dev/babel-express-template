@@ -4,15 +4,17 @@
 		"paths": {
 			"@/*": ["src/"],
 			"@controllers/*": ["src/controllers/"],
+			"@helpers/*": ["src/helpers/"],
 			"@middlewares/*": ["src/middlewares/"],
 			"@models/*": ["src/models/"],
 			"@routers/*": ["src/routers/"],
-			"@tools/*": ["src/tools/*"],
+			"@tools/*": ["src/helpers/*"],
 			"@controllers": ["src/controllers"],
+			"@helpers": ["src/helpers"],
 			"@middlewares": ["src/middlewares"],
 			"@models": ["src/models"],
 			"@routers": ["src/routers"],
-			"@tools": ["src/tools"]
+			"@tools": ["src/helpers"]
 		}
 	},
 	"include": ["src"],
