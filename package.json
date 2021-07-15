@@ -1,9 +1,9 @@
 {
 	"name": "my-app-backend",
 	"version": "0.0.1",
-	"description": "This is the backend for my-app",
-	"main": "build/server.js",
-	"module": "src/server.js",
+	"description": "This is the backend of my-app",
+	"main": "build/index.js",
+	"module": "src/index.js",
 	"requiredVariables": [
 		"SAMPLE"
 	],
