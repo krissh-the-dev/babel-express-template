@@ -11,9 +11,9 @@
 		"build": "babel src --out-dir build",
 		"dev": "nodemon --exec babel-node src/index.js --ignore jsconfig.json",
 		"start": "node build/index.js",
-		"format": "prettier --write \"**/*.{js,mjs}\"",
-		"format:check": "prettier -c \"**/*.{js,mjs}\"",
-		"lint": "eslint \"src/**/*.{js,mjs}\"",
+		"format": "prettier --write \"**/*.{js,mjs,cjs}\"",
+		"format:check": "prettier -c \"**/*.{js,mjs,cjs}\"",
+		"lint": "eslint \"src/**/*.{js,mjs,cjs}\"",
 		"lint:fix": "npm run lint -- --fix",
 		"test": "jest"
 	},

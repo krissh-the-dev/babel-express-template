@@ -34,7 +34,15 @@ function extractAttributes(tokens, req, res) {
 	const time = new Date(tokens.date(req, res)).toLocaleTimeString('en-US');
 	const date = new Date(tokens.date(req, res)).toLocaleDateString('en-GB');
 
-	return { statusCode, methodName, requestURL, responseLength, responseTime, time, date };
+	return {
+		statusCode,
+		methodName,
+		requestURL,
+		responseLength,
+		responseTime,
+		time,
+		date
+	};
 }
 
 function colorizeStatusCodes(statusCode) {
