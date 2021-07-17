@@ -15,6 +15,9 @@ if (isClusteringEnabled && cluster.isMaster) {
 	spinServer(PORT, HOST);
 }
 
+/**
+ * Creates worker processes for each core of the cpu for the server to run
+ */
 function setupWorkerProcesses() {
 	let workers = [];
 
@@ -29,13 +32,13 @@ function setupWorkerProcesses() {
 	}
 
 	cluster.on('online', worker => {
-		logger.info(`[Worker ${worker.process.pid}] is listening`);
+		logger.info(`[worker ${worker.process.pid}] is listening`);
 	});
 
 	cluster.on('error', (worker, code, signal) => {
-		logger.warn(`[Worker ${worker.process.pid}] died with code: ${code}, signal: ${signal}`);
+		logger.warn(`[worker ${worker.process.pid}] died with code: ${code} and signal: ${signal}`);
 
-		logger.info('[master]: Forking another worker');
+		logger.info('[master] Forking another worker');
 		let newFork = cluster.fork();
 		newFork.on('message', message => {
 			logger.info(`[worker ${workers.length}, pid: ${newFork.process.pid}] ${message}`);
