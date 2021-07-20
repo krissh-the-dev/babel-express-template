@@ -20,7 +20,7 @@ const plugins = [
 	['@babel/plugin-syntax-throw-expressions']
 ];
 
-export default {
+module.exports = {
 	presets,
 	plugins
 };
