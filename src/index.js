@@ -12,7 +12,7 @@ const isClusteringEnabled = config.get('enableClustering');
 if (isClusteringEnabled && cluster.isMaster) {
 	setupWorkerProcesses();
 } else {
-	spinServer(PORT, HOST);
+	spinServer(cluster.worker, PORT, HOST);
 }
 
 /**
@@ -25,23 +25,24 @@ function setupWorkerProcesses() {
 	logger.info(`[master] Setting up ${noOfCores} workers`);
 
 	for (let i = 0; i < noOfCores; i++) {
-		workers.push(cluster.fork());
+		const worker = cluster.fork();
+		workers.push(worker);
 		workers[i].on('message', message => {
-			logger.info(`[worker ${i}, pid: ${workers[i].process.pid}] ${message}`);
+			logger.info(`[worker ${worker.id}] ${message}`);
 		});
 	}
 
 	cluster.on('online', worker => {
-		logger.info(`[worker ${worker.process.pid}] is listening`);
+		logger.info(`[worker ${worker.id}] Online`);
 	});
 
 	cluster.on('error', (worker, code, signal) => {
-		logger.warn(`[worker ${worker.process.pid}] died with code: ${code} and signal: ${signal}`);
+		logger.warn(`[worker ${worker.id}] Offline. Died with code: ${code} and signal: ${signal}`);
 
 		logger.info('[master] Forking another worker');
 		let newFork = cluster.fork();
 		newFork.on('message', message => {
-			logger.info(`[worker ${workers.length}, pid: ${newFork.process.pid}] ${message}`);
+			logger.info(`[worker ${worker.id}] ${message}`);
 		});
 		workers.push(newFork);
 	});
