@@ -11,7 +11,7 @@ const { combine, colorize, printf, json, prettyPrint, timestamp } = format;
  */
 
 export function registerRequestLogging(worker, app) {
-	if (config.get('logRequests')) app.use(requestLogger);
+	if (config.get('logRequests')) app.use(requestLogger(worker));
 }
 
 const prettyConsoleTransport = worker => {

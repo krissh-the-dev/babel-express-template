@@ -10,17 +10,21 @@ import chalk from 'chalk';
  * affect the performance of your app and slow down your server.
  */
 
-export default morgan((tokens, req, res) => {
-	let { statusCode, methodName, requestURL, responseLength, responseTime, time, date } =
-		extractAttributes(tokens, req, res);
+export default function requestLogger(worker) {
+	return morgan((tokens, req, res) => {
+		let { statusCode, methodName, requestURL, responseLength, responseTime, time, date } =
+			extractAttributes(tokens, req, res);
 
-	const coloredStatus = colorizeStatusCodes(statusCode);
-	const coloredMethod = colorizeMethod(methodName);
-	const coloredLengthInBytes = customizeLength(responseLength);
-	const coloredResponseTime = customizeResponseTime(responseTime);
+		const coloredStatus = colorizeStatusCodes(statusCode);
+		const coloredMethod = colorizeMethod(methodName);
+		const coloredLengthInBytes = customizeLength(responseLength);
+		const coloredResponseTime = customizeResponseTime(responseTime);
 
-	return `[${date} ${time}] ${coloredStatus} | ${coloredMethod} ${requestURL} | ${coloredLengthInBytes}, ${coloredResponseTime}`;
-});
+		return `[${date} ${time}] ${coloredStatus} | ${coloredMethod} ${requestURL} |${
+			worker ? ` [worker ${worker.id}]` : ''
+		} ${coloredLengthInBytes}, ${coloredResponseTime}`;
+	});
+}
 
 function extractAttributes(tokens, req, res) {
 	/**
