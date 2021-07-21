@@ -10,8 +10,6 @@ const { combine, colorize, printf, json, prettyPrint, timestamp } = format;
  * Configures morgan request logging and adds the middleware.
  */
 
-let worker;
-
 export function registerRequestLogging(worker, app) {
 	if (config.get('logRequests')) app.use(requestLogger);
 }
@@ -40,11 +38,7 @@ const fileLogTransport = (filename, level) => {
 	});
 };
 
-export function setupWinston(worker) {
-	worker = worker;
-}
-
-export default winston.createLogger({
+const winstonOptions = worker => ({
 	level: config.get('loggingLevel'),
 	transports: [prettyConsoleTransport(worker), fileLogTransport('logs/verbose.log', 'verbose')],
 	exceptionHandlers: [
@@ -56,3 +50,11 @@ export default winston.createLogger({
 		fileLogTransport('logs/rejections.log', 'warn')
 	]
 });
+
+const logger = winston.createLogger(winstonOptions());
+
+export function setupWinston(worker) {
+	logger.configure(winstonOptions(worker));
+}
+
+export default logger;
