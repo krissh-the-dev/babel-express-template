@@ -15,6 +15,7 @@
 		"format:check": "prettier -c \"**/*.{js,mjs,cjs}\"",
 		"lint": "eslint \"src/**/*.{js,mjs,cjs}\"",
 		"lint:fix": "npm run lint -- --fix",
+		"prepare": "husky install",
 		"test": "jest"
 	},
 	"keywords": [],
@@ -45,6 +46,7 @@
 		"babel-plugin-module-resolver": "^4.1.0",
 		"eslint": "^7.28.0",
 		"eslint-plugin-jest": "^24.3.6",
+		"husky": "^7.0.1",
 		"jest": "^27.0.4",
 		"nodemon": "^2.0.7",
 		"prettier": "^2.3.1"
