@@ -14,6 +14,11 @@ export function registerRequestLogging(worker, app) {
 	if (config.get('logRequests')) app.use(requestLogger(worker));
 }
 
+/**
+ * Creates a customized console transport
+ * @param {*} worker
+ * @returns {*} WinstonConsoleTransport
+ */
 const prettyConsoleTransport = worker => {
 	return new transports.Console({
 		format: combine(
@@ -30,6 +35,12 @@ const prettyConsoleTransport = worker => {
 	});
 };
 
+/**
+ * Creates file transport
+ * @param {string} filename filepath to log
+ * @param {string} level Logging level
+ * @returns WinstonTransport
+ */
 const fileLogTransport = (filename, level) => {
 	return new transports.File({
 		filename,
@@ -38,23 +49,45 @@ const fileLogTransport = (filename, level) => {
 	});
 };
 
-const winstonOptions = worker => ({
-	level: config.get('loggingLevel'),
-	transports: [prettyConsoleTransport(worker), fileLogTransport('logs/verbose.log', 'verbose')],
-	exceptionHandlers: [
-		prettyConsoleTransport(worker),
-		fileLogTransport('logs/exceptions.log', 'error')
-	],
-	rejectionHandlers: [
-		prettyConsoleTransport(worker),
-		fileLogTransport('logs/rejections.log', 'warn')
-	]
-});
+/**
+ * Get winston configs and transports based on environment
+ * @param {string} environment
+ * @param {*} worker
+ * @returns {{transports: Array, exceptionHandlers: Array, rejectionHandlers: Array}}
+ */
+const getWinstonOptions = (environment, worker) => {
+	let winstonConfigs = {
+		transports: [prettyConsoleTransport(worker), fileLogTransport('logs/verbose.log', 'verbose')],
+		exceptionHandlers: [
+			prettyConsoleTransport(worker),
+			fileLogTransport('logs/exceptions.log', 'error')
+		],
+		rejectionHandlers: [
+			prettyConsoleTransport(worker),
+			fileLogTransport('logs/rejections.log', 'warn')
+		]
+	};
 
-const logger = winston.createLogger(winstonOptions());
+	if (environment === 'development') {
+		// pop out file transports, log only on console
+		for (const configProp of Object.keys(winstonConfigs)) {
+			winstonConfigs[configProp].pop();
+		}
+	} else if (environment === 'test') {
+		winstonConfigs = {};
+	}
 
+	return { level: config.get('loggingLevel'), ...winstonConfigs };
+};
+
+const logger = winston.createLogger(getWinstonOptions(config.util.getEnv('NODE_ENV')));
+
+/**
+ * Reconfigures winston logger with worker(if exists)
+ * @param {*} worker
+ */
 export function setupWinston(worker) {
-	logger.configure(winstonOptions(worker));
+	if (worker) logger.configure(getWinstonOptions(config.util.getEnv('NODE_ENV'), worker));
 }
 
 export default logger;
