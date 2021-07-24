@@ -13,8 +13,9 @@ import {
  * Spins up an express server at given socket parameters
  * @param {Number} PORT
  * @param {String} HOST
+ * @param {*} worker
  */
-export default function spinServer(worker, PORT, HOST) {
+export default function spinServer(PORT, HOST, worker) {
 	const app = express();
 
 	registerRequestLogging(worker, app);

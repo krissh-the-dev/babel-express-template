@@ -4,6 +4,7 @@ import { PingRouter } from '@routers';
 
 /**
  * Registers all routes and handles server errors.
+ * @param {*} ExpressAppInstance
  */
 
 export default function registerRouters(app) {

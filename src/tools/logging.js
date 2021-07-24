@@ -9,7 +9,6 @@ const { combine, colorize, printf, json, prettyPrint, timestamp } = format;
 /**
  * Configures morgan request logging and adds the middleware.
  */
-
 export function registerRequestLogging(worker, app) {
 	if (config.get('logRequests')) app.use(requestLogger(worker));
 }

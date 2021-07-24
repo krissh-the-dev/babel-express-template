@@ -16,6 +16,10 @@ const documentObject = {
 	paths: docs
 };
 
+/**
+ * Setup swagger docs engine
+ * @param {*} app
+ */
 export default function setupDocs(app) {
 	if (config.get('serveDocument'))
 		app.use('/docs', swaggerUI.serve, swaggerUI.setup(documentObject));

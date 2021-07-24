@@ -5,6 +5,9 @@ import { name as appName, version } from 'package.json';
 
 /**
  * Spins a server on given socket parameters [HOST, PORT].
+ * @param {*} ExpressAppInstance
+ * @param {string} HOST - Hostname.
+ * @param {number} PORT - Port number.
  */
 
 export default function registerListener(app, PORT, HOST) {

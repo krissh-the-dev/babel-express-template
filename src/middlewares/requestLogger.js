@@ -8,6 +8,8 @@ import chalk from 'chalk';
  * helpful in development, but it is recommended to turn this off in production
  * to reduce the  request processing queue length. Using this in production may
  * affect the performance of your app and slow down your server.
+ *
+ * @param {*} worker
  */
 
 export default function requestLogger(worker) {
@@ -26,10 +28,10 @@ export default function requestLogger(worker) {
 	});
 }
 
+/**
+ * Extracts required attributes from the request
+ */
 function extractAttributes(tokens, req, res) {
-	/**
-	 * Extracts required attributes from the request
-	 */
 	const statusCode = tokens.status(req, res);
 	const methodName = tokens.method(req, res);
 	const requestURL = tokens.url(req, res);
@@ -49,8 +51,13 @@ function extractAttributes(tokens, req, res) {
 	};
 }
 
+/**
+ * Colorize status codes based on the value
+ * @param {number} statusCode
+ * @returns {string} colorized status code string
+ */
 function colorizeStatusCodes(statusCode) {
-	/**
+	/*
 	 * Adds chalk colors to the status codes:
 	 * Code		|		Color
 	 * 1xx		|		gray
@@ -75,8 +82,13 @@ function colorizeStatusCodes(statusCode) {
 	return colorizedStatus;
 }
 
+/**
+ * Colorize method name based on the value
+ * @param {string} methodName
+ * @returns colorizes method name string
+ */
 function colorizeMethod(methodName) {
-	/**
+	/*
 	 * Adds chalk colors to the Http request methods:
 	 * Method			|		Color
 	 * Get				|		blue
@@ -109,8 +121,13 @@ function colorizeMethod(methodName) {
 	return colorizedMethod;
 }
 
+/**
+ * Customize res length based on the length(size)
+ * @param {number} length
+ * @returns {string} colorized length string with unit
+ */
 function customizeLength(length) {
-	/**
+	/*
 	 * Colorizes length string based on the value and adds 'B' as unit.
 	 * size < 600 => default
 	 * 600 <= size < 3000 => yellow
@@ -129,8 +146,13 @@ function customizeLength(length) {
 	return customizedLength;
 }
 
+/**
+ * Customize res time based
+ * @param {number} resTime
+ * @returns {string} colorized time string with unit
+ */
 function customizeResponseTime(resTime) {
-	/**
+	/*
 	 * Colorizes response time string based on the value and adds 'ms' as unit.
 	 * size < 500 => default
 	 * 500 <= size < 1000 => yellow

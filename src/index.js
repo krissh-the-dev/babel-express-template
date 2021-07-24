@@ -12,7 +12,7 @@ const isClusteringEnabled = config.get('enableClustering');
 if (isClusteringEnabled && cluster.isMaster) {
 	setupWorkerProcesses();
 } else {
-	spinServer(cluster.worker, PORT, HOST);
+	spinServer(PORT, HOST, cluster.worker);
 }
 
 /**
