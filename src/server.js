@@ -1,13 +1,7 @@
 import express from 'express';
 
 import { registerListener, registerRouters } from '@helpers';
-import {
-	checkEnv,
-	registerRequestLogging,
-	registerPreprocessor,
-	setupDocs,
-	setupWinston
-} from '@tools';
+import { registerRequestLogging, registerPreprocessor, setupDocs, setupWinston } from '@tools';
 
 /**
  * Spins up an express server at given socket parameters
@@ -20,7 +14,6 @@ export default function spinServer(PORT, HOST, worker) {
 
 	registerRequestLogging(worker, app);
 	setupWinston(worker);
-	checkEnv();
 	registerPreprocessor(app);
 	setupDocs(app);
 	registerRouters(app);
