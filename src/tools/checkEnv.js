@@ -1,5 +1,6 @@
 import { yellow } from 'chalk';
 import { requiredVariables } from 'package.json';
+import logger from './logging';
 
 /**
  * Checks if all the required environment variables are set.
@@ -11,8 +12,11 @@ export default function checkEnv() {
 	const missing = requiredVariables.filter(v => !Object.keys(process.env).includes(v));
 
 	if (missing.length !== 0) {
-		throw new Error(
-			`Missing required environment variables: ${yellow(missing.toString().replace(',', ', '))}`
+		logger.error(
+			new Error(
+				`Missing required environment variables: ${yellow(missing.toString().replace(',', ', '))}`
+			).stack
 		);
+		process.exit(1);
 	}
 }
