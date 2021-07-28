@@ -12,7 +12,7 @@ export default function checkEnv() {
 
 	if (missing.length !== 0) {
 		throw new Error(
-			`Missing required environment variables: ${yellow(missing.toString().replace(',', ', '))}`
+			`Missing required environment variables: ${yellow(missing.toString().replaceAll(',', ', '))}`
 		);
 	}
 }
