@@ -1,20 +1,21 @@
 {
 	"compilerOptions": {
-		"baseUrl": "./src",
+		"baseUrl": ".",
 		"paths": {
-			"@/*": ["."],
-			"@controllers": ["controllers"],
-			"@helpers": ["helpers"],
-			"@middlewares": ["middlewares"],
-			"@models": ["models"],
-			"@routers": ["routers"],
-			"@tools": ["tools"],
-			"@controllers/*": ["controllers/"],
-			"@helpers/*": ["helpers/"],
-			"@middlewares/*": ["middlewares/"],
-			"@models/*": ["models/"],
-			"@routers/*": ["routers/"],
-			"@tools/*": ["tools/"]
+			"@": ["src"],
+			"@/*": ["src/"],
+			"@controllers": ["src/controllers"],
+			"@helpers": ["src/helpers"],
+			"@middlewares": ["src/middlewares"],
+			"@models": ["src/models"],
+			"@routers": ["src/routers"],
+			"@tools": ["src/tools"],
+			"@controllers/*": ["src/controllers/"],
+			"@helpers/*": ["src/helpers/"],
+			"@middlewares/*": ["src/middlewares/"],
+			"@models/*": ["src/models/"],
+			"@routers/*": ["src/routers/"],
+			"@tools/*": ["src/tools/"]
 		}
 	},
 	"exclude": ["node_modules"],
