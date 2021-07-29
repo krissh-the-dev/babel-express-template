@@ -67,13 +67,11 @@ const getWinstonOptions = (environment, worker) => {
 		]
 	};
 
-	if (environment === 'development') {
+	if (environment !== 'production') {
 		// pop out file transports, log only on console
 		for (const configProp of Object.keys(winstonConfigs)) {
 			winstonConfigs[configProp].pop();
 		}
-	} else if (environment === 'test') {
-		winstonConfigs = {};
 	}
 
 	return { level: config.get('loggingLevel'), ...winstonConfigs };

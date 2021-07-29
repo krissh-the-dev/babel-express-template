@@ -1,5 +1,5 @@
-describe('sample test', () => {
-	it('just a sample test', () => {
-		return;
+describe('Unit tests', () => {
+	it('Dummy unit test', () => {
+		expect(true).toBeTruthy();
 	});
 });

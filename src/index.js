@@ -9,10 +9,12 @@ const PORT = config.get('port');
 const HOST = config.get('host');
 const isClusteringEnabled = config.get('enableClustering');
 
+let server;
+
 if (isClusteringEnabled && cluster.isMaster) {
 	setupWorkerProcesses();
 } else {
-	spinServer(PORT, HOST, cluster.worker);
+	server = spinServer(PORT, HOST, cluster.worker);
 }
 
 /**
@@ -47,3 +49,5 @@ function setupWorkerProcesses() {
 		workers.push(newFork);
 	});
 }
+
+module.exports = server;

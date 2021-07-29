@@ -24,5 +24,6 @@ export default function spinServer(PORT, HOST, worker) {
 	registerPreprocessor(app);
 	setupDocs(app);
 	registerRouters(app);
-	registerListener(app, PORT, HOST);
+
+	return registerListener(app, PORT, HOST);
 }
