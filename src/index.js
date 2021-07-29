@@ -2,7 +2,7 @@ import 'dotenv/config';
 import config from 'config';
 import cluster from 'cluster';
 
-import logger from '@tools/logging';
+import { logger } from '@tools';
 import spinServer from './server';
 
 const PORT = config.get('port');

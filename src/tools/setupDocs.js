@@ -1,6 +1,6 @@
+import config from 'config';
 import swaggerUI from 'swagger-ui-express';
 import { name as appName, description, license, version } from 'package.json';
-import config from 'config';
 import docs from '@docs';
 
 const documentObject = {

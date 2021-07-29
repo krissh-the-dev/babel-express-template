@@ -11,7 +11,6 @@ import chalk from 'chalk';
  *
  * @param {*} worker
  */
-
 export default function requestLogger(worker) {
 	return morgan((tokens, req, res) => {
 		let { statusCode, methodName, requestURL, responseLength, responseTime, time, date } =

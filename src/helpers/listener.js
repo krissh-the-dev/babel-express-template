@@ -1,7 +1,7 @@
 import chalk from 'chalk';
-import logger from '@tools/logging';
 import config from 'config';
 import { name as appName, version } from 'package.json';
+import { logger } from '@tools';
 
 /**
  * Spins a server on given socket parameters [HOST, PORT].
