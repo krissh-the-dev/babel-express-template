@@ -6,7 +6,8 @@ import {
 	registerRequestLogging,
 	registerPreprocessor,
 	setupDocs,
-	setupWinston
+	setupWinston,
+	handleServerErrors
 } from '@tools';
 
 /**
@@ -24,6 +25,7 @@ export default function spinServer(PORT, HOST, worker) {
 	registerPreprocessor(app);
 	setupDocs(app);
 	registerRouters(app);
+	handleServerErrors(app);
 
 	return registerListener(app, PORT, HOST);
 }
