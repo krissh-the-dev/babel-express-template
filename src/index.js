@@ -1,8 +1,9 @@
-import 'dotenv/config';
-import config from 'config';
 import cluster from 'cluster';
+import config from 'config';
+import 'dotenv/config';
 
 import { logger } from '@tools';
+
 import spinServer from './server';
 
 const PORT = config.get('port');

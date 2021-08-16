@@ -1,5 +1,6 @@
 import { yellow } from 'chalk';
 import { requiredVariables } from 'package.json';
+
 import logger from './logging';
 
 /**

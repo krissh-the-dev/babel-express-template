@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { testPing } from '@controllers/ping.controller';
 
 const router = Router();

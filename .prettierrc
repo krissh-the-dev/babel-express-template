@@ -8,5 +8,7 @@
 	"bracketSpacing": true,
 	"arrowParens": "avoid",
 	"endOfLine": "crlf",
-	"printWidth": 100
+	"printWidth": 100,
+	"importOrder": ["^[a-z]$", "^@", "^[./]"],
+	"importOrderSeparation": true
 }

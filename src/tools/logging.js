@@ -1,6 +1,7 @@
+import chalk from 'chalk';
 import config from 'config';
 import winston from 'winston';
-import chalk from 'chalk';
+
 import { requestLogger } from '@middlewares';
 
 const { format, transports } = winston;

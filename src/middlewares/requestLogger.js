@@ -1,5 +1,5 @@
-import morgan from 'morgan';
 import chalk from 'chalk';
+import morgan from 'morgan';
 
 /**
  * Request Logging with morgan
