@@ -1,1 +1,1 @@
-export { default as connectDatabase } from './db.connection';
+export {default as connectDatabase} from './db.connection';
