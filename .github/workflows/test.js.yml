@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SECRET_KEY: '${{ secrets.SECRET_KEY }}'
+      SAMPLE: ${{ secrets.SAMPLE }}
       # use actions secret: read more here: https://docs.github.com/en/actions/reference/encrypted-secrets
       # you'll have to remove the quotes surrounding the value of the secret
 
