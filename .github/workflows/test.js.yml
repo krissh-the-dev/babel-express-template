@@ -1,0 +1,35 @@
+
+name: Test CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    env:
+      SAMPLE: ${{ secrets.SAMPLE }}
+      # use actions secret: read more here: https://docs.github.com/en/actions/reference/encrypted-secrets
+      # you'll have to remove the quotes surrounding the value of the secret
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - run: npm ci
+    - run: npm test
