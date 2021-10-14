@@ -1,5 +1,5 @@
-import { yellow } from 'chalk';
 import { requiredVariables } from 'package.json';
+import pc from 'picocolors';
 
 import logger from './logging';
 
@@ -15,7 +15,9 @@ export default function checkEnv() {
 	if (missing.length !== 0) {
 		logger.error(
 			new Error(
-				`Missing required environment variables: ${yellow(missing.toString().replace(',', ', '))}`
+				`Missing required environment variables: ${pc.yellow(
+					missing.toString().replace(',', ', ')
+				)}`
 			).stack
 		);
 		process.exit(1);

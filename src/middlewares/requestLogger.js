@@ -1,5 +1,5 @@
-import chalk from 'chalk';
 import morgan from 'morgan';
+import pc from 'picocolors';
 
 /**
  * Request Logging with morgan
@@ -57,7 +57,7 @@ function extractAttributes(tokens, req, res) {
  */
 function colorizeStatusCodes(statusCode) {
 	/*
-	 * Adds chalk colors to the status codes:
+	 * Adds pc colors to the status codes:
 	 * Code		|		Color
 	 * 1xx		|		gray
 	 * 2xx		|		green
@@ -68,15 +68,15 @@ function colorizeStatusCodes(statusCode) {
 
 	let colorizedStatus;
 	if (statusCode < 200) {
-		colorizedStatus = chalk.gray.bold(statusCode);
+		colorizedStatus = pc.gray.bold(statusCode);
 	} else if (statusCode < 300) {
-		colorizedStatus = chalk.green.bold(statusCode);
+		colorizedStatus = pc.green.bold(statusCode);
 	} else if (statusCode < 400) {
-		colorizedStatus = chalk.cyan.bold(statusCode);
+		colorizedStatus = pc.cyan.bold(statusCode);
 	} else if (statusCode < 500) {
-		colorizedStatus = chalk.yellow.bold(statusCode);
+		colorizedStatus = pc.yellow.bold(statusCode);
 	} else {
-		colorizedStatus = chalk.red.bold(statusCode);
+		colorizedStatus = pc.red.bold(statusCode);
 	}
 	return colorizedStatus;
 }
@@ -88,7 +88,7 @@ function colorizeStatusCodes(statusCode) {
  */
 function colorizeMethod(methodName) {
 	/*
-	 * Adds chalk colors to the Http request methods:
+	 * Adds pc colors to the Http request methods:
 	 * Method			|		Color
 	 * Get				|		blue
 	 * Post, Put	|		magenta
@@ -98,20 +98,20 @@ function colorizeMethod(methodName) {
 	let colorizedMethod;
 	switch (methodName) {
 		case 'GET':
-			colorizedMethod = chalk.blue(methodName);
+			colorizedMethod = pc.blue(methodName);
 			break;
 
 		case 'POST':
 		case 'PUT':
-			colorizedMethod = chalk.magenta(methodName);
+			colorizedMethod = pc.magenta(methodName);
 			break;
 
 		case 'PATCH':
-			colorizedMethod = chalk.yellow(methodName);
+			colorizedMethod = pc.yellow(methodName);
 			break;
 
 		case 'DELETE':
-			colorizedMethod = chalk.red(methodName);
+			colorizedMethod = pc.red(methodName);
 			break;
 
 		default:
@@ -134,9 +134,9 @@ function customizeLength(length) {
 	 */
 	let customizedLength;
 	if (length >= 600 && length < 3000) {
-		customizedLength = chalk.yellow(length + 'B');
+		customizedLength = pc.yellow(length + 'B');
 	} else if (length >= 3000) {
-		customizedLength = chalk.red(length + 'B');
+		customizedLength = pc.red(length + 'B');
 	} else if (!length) {
 		customizedLength = '0B';
 	} else {
@@ -159,9 +159,9 @@ function customizeResponseTime(resTime) {
 	 */
 	let coloredResponseTime;
 	if (resTime >= 500 && resTime < 1000) {
-		coloredResponseTime = chalk.yellow(resTime + 'ms');
+		coloredResponseTime = pc.yellow(resTime + 'ms');
 	} else if (resTime >= 1000) {
-		coloredResponseTime = chalk.red(resTime + 'ms');
+		coloredResponseTime = pc.red(resTime + 'ms');
 	} else {
 		coloredResponseTime = `${resTime}ms`;
 	}

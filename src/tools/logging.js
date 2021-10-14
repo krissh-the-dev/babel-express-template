@@ -1,5 +1,5 @@
-import chalk from 'chalk';
 import config from 'config';
+import pc from 'picocolors';
 import winston from 'winston';
 
 import { requestLogger } from '@middlewares';
@@ -28,7 +28,7 @@ const prettyConsoleTransport = worker => {
 			printf(info => {
 				const { level, message, timestamp } = info;
 				return `[${timestamp}] ${level} |${worker ? ` [worker ${worker.id}]` : ''} ${message} ${
-					level.includes('error') ? chalk.greenBright('\n\t - Stack trace ends here - \n') : ''
+					level.includes('error') ? pc.green('\n\t - Stack trace ends here - \n') : ''
 				}`;
 			})
 		)

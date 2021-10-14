@@ -1,6 +1,6 @@
-import chalk from 'chalk';
 import config from 'config';
 import { name as appName, version } from 'package.json';
+import pc from 'picocolors';
 
 import { logger } from '@tools';
 
@@ -16,12 +16,10 @@ export default function registerListener(app, PORT, HOST) {
 	const server = app.listen(PORT, HOST, () => {
 		const { address, port } = server.address();
 		logger.info(
-			`Started ${appName} v${version} ${chalk.yellow(environment)} server at port ${chalk.magenta(
-				port
-			)}`
+			`Started ${appName} v${version} ${pc.yellow(environment)} server at port ${pc.magenta(port)}`
 		);
-		logger.info(`Listening for requests at ${chalk.cyan(address + ':' + port)}`);
-		logger.info(`Logging level set to: ${chalk.blue(logger.level)}`);
+		logger.info(`Listening for requests at ${pc.cyan(address + ':' + port)}`);
+		logger.info(`Logging level set to: ${pc.blue(logger.level)}`);
 	});
 
 	return server;
