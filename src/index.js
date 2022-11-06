@@ -2,6 +2,7 @@ import cluster from 'cluster';
 import config from 'config';
 import 'dotenv/config';
 
+import { Labels } from '@constants';
 import { logger } from '@tools';
 
 import spinServer from './server';
@@ -25,27 +26,33 @@ function setupWorkerProcesses() {
 	let workers = [];
 
 	const noOfCores = require('os').cpus().length;
-	logger.info(`[master] Setting up ${noOfCores} workers`);
+	logger.info(
+		`[${
+			Labels.MAIN_THREAD_LABEL
+		}] Setting up ${noOfCores} ${Labels.WORKER_THREAD_LABEL.toLowerCase()}s`
+	);
 
 	for (let i = 0; i < noOfCores; i++) {
 		const worker = cluster.fork();
 		workers.push(worker);
 		workers[i].on('message', message => {
-			logger.info(`[worker ${worker.id}] ${message}`);
+			logger.info(`[${Labels.WORKER_THREAD_LABEL} ${worker.id}] ${message}`);
 		});
 	}
 
 	cluster.on('online', worker => {
-		logger.info(`[worker ${worker.id}] Online`);
+		logger.info(`[${Labels.WORKER_THREAD_LABEL} ${worker.id}] Online`);
 	});
 
 	cluster.on('error', (worker, code, signal) => {
-		logger.warn(`[worker ${worker.id}] Offline. Died with code: ${code} and signal: ${signal}`);
+		logger.warn(
+			`[${Labels.WORKER_THREAD_LABEL} ${worker.id}] Offline. Died with code: ${code} and signal: ${signal}`
+		);
 
-		logger.info('[master] Forking another worker');
+		logger.info(`[${Labels.MAIN_THREAD_LABEL}] Forking another worker`);
 		let newFork = cluster.fork();
 		newFork.on('message', message => {
-			logger.info(`[worker ${worker.id}] ${message}`);
+			logger.info(`[${Labels.WORKER_THREAD_LABEL} ${worker.id}] ${message}`);
 		});
 		workers.push(newFork);
 	});

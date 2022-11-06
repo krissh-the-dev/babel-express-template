@@ -2,7 +2,7 @@ import config from 'config';
 import pc from 'picocolors';
 import winston from 'winston';
 
-import { FileLogLevels } from '@constants';
+import { FileLogLevels, FilePaths, Formats, Labels } from '@constants';
 import { requestLogger } from '@middlewares';
 
 const { format, transports } = winston;
@@ -25,10 +25,12 @@ const prettyConsoleTransport = worker => {
 		format: combine(
 			colorize(),
 			json(),
-			timestamp({ format: 'DD/MM/YYYY h:mm:ss A' }),
+			timestamp({ format: Formats.REQUEST_LOGGING_TIME_STAMP_FORMAT }),
 			printf(info => {
 				const { level, message, timestamp } = info;
-				return `[${timestamp}] ${level} |${worker ? ` [worker ${worker.id}]` : ''} ${message} ${
+				return `[${timestamp}] ${level} |${
+					worker ? ` [${Labels.WORKER_THREAD_LABEL} ${worker.id}]` : ''
+				} ${message} ${
 					level.includes('error') ? pc.green('\n\t - Stack trace ends here - \n') : ''
 				}`;
 			})
@@ -59,16 +61,19 @@ const fileLogTransport = (filename, level) => {
 const getWinstonOptions = (fileLoggingLevel, worker) => {
 	const DEFAULT_CONFIG = { level: config.get('consoleLoggingLevel') };
 	const VERBOSE_CONFIG = {
-		transports: [prettyConsoleTransport(worker), fileLogTransport('logs/verbose.log', 'verbose')]
+		transports: [
+			prettyConsoleTransport(worker),
+			fileLogTransport(FilePaths.VERBOSE_FILE_LOG, 'verbose')
+		]
 	};
 	const ERROR_CONFIG = {
 		exceptionHandlers: [
 			prettyConsoleTransport(worker),
-			fileLogTransport('logs/exceptions.log', 'error')
+			fileLogTransport(FilePaths.EXCEPTIONS_FILE_LOG, 'error')
 		],
 		rejectionHandlers: [
 			prettyConsoleTransport(worker),
-			fileLogTransport('logs/rejections.log', 'warn')
+			fileLogTransport(FilePaths.REJECTIONS_FILE_LOG, 'warn')
 		]
 	};
 

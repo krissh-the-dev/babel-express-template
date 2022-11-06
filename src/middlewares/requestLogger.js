@@ -1,6 +1,8 @@
 import morgan from 'morgan';
 import pc from 'picocolors';
 
+import { Formats, Labels } from '@constants';
+
 /**
  * Request Logging with morgan
  *
@@ -22,7 +24,7 @@ export default function requestLogger(worker) {
 		const coloredResponseTime = customizeResponseTime(responseTime);
 
 		return `[${date} ${time}] ${coloredStatus} | ${coloredMethod} ${requestURL} |${
-			worker ? ` [worker ${worker.id}]` : ''
+			worker ? ` [${Labels.WORKER_THREAD_LABEL} ${worker.id}]` : ''
 		} ${coloredLengthInBytes}, ${coloredResponseTime}`;
 	});
 }
@@ -36,8 +38,8 @@ function extractAttributes(tokens, req, res) {
 	const requestURL = tokens.url(req, res);
 	const responseLength = tokens.res(req, res, 'content-length');
 	const responseTime = tokens['response-time'](req, res);
-	const time = new Date(tokens.date(req, res)).toLocaleTimeString('en-US');
-	const date = new Date(tokens.date(req, res)).toLocaleDateString('en-GB');
+	const time = new Date(tokens.date(req, res)).toLocaleTimeString(Formats.APP_LOGS_TIME_FORMAT);
+	const date = new Date(tokens.date(req, res)).toLocaleDateString(Formats.APP_LOGS_DATE_FORMAT);
 
 	return {
 		statusCode,
