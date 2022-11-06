@@ -3,5 +3,5 @@ module.exports = {
 	logRequests: false,
 	serveDocument: false,
 	enableClustering: false,
-	enableFileLogging: false
+	fileLoggingLevel: 'off'
 };

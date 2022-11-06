@@ -3,7 +3,7 @@ module.exports = {
 	port: 5000,
 	serveDocument: true,
 	enableClustering: false,
-	enableFileLogging: true
+	fileLoggingLevel: 'all'
 };
 
 /*

@@ -19,7 +19,8 @@ export default function registerListener(app, PORT, HOST) {
 			`Started ${appName} v${version} ${pc.yellow(environment)} server at port ${pc.magenta(port)}`
 		);
 		logger.info(`Listening for requests at ${pc.cyan(address + ':' + port)}`);
-		logger.info(`Logging level set to: ${pc.blue(logger.level)}`);
+		logger.info(`Console logging level set to: ${pc.blue(logger.level)}`);
+		logger.info(`File logging level set to: ${pc.blue(config.get('fileLoggingLevel'))}`);
 	});
 
 	return server;

@@ -2,6 +2,7 @@ import config from 'config';
 import pc from 'picocolors';
 import winston from 'winston';
 
+import { FileLogLevels } from '@constants';
 import { requestLogger } from '@middlewares';
 
 const { format, transports } = winston;
@@ -55,9 +56,12 @@ const fileLogTransport = (filename, level) => {
  * @param {*} worker
  * @returns {{transports: Array, exceptionHandlers: Array, rejectionHandlers: Array}}
  */
-const getWinstonOptions = (isFileLoggingEnabled, worker) => {
-	let winstonConfigs = {
-		transports: [prettyConsoleTransport(worker), fileLogTransport('logs/verbose.log', 'verbose')],
+const getWinstonOptions = (fileLoggingLevel, worker) => {
+	const DEFAULT_CONFIG = { level: config.get('loggingLevel') };
+	const VERBOSE_CONFIG = {
+		transports: [prettyConsoleTransport(worker), fileLogTransport('logs/verbose.log', 'verbose')]
+	};
+	const ERROR_CONFIG = {
 		exceptionHandlers: [
 			prettyConsoleTransport(worker),
 			fileLogTransport('logs/exceptions.log', 'error')
@@ -68,24 +72,34 @@ const getWinstonOptions = (isFileLoggingEnabled, worker) => {
 		]
 	};
 
-	if (!isFileLoggingEnabled) {
-		// pop out file transports, log only on console
-		for (const configProp of Object.keys(winstonConfigs)) {
-			winstonConfigs[configProp].pop();
-		}
-	}
+	switch (fileLoggingLevel) {
+		case FileLogLevels.ALL:
+			return {
+				...DEFAULT_CONFIG,
+				...VERBOSE_CONFIG,
+				...ERROR_CONFIG
+			};
 
-	return { level: config.get('loggingLevel'), ...winstonConfigs };
+		case FileLogLevels.ERRORS:
+			return {
+				...DEFAULT_CONFIG,
+				...ERROR_CONFIG
+			};
+
+		case FileLogLevels.OFF:
+		default:
+			return { level: config.get('loggingLevel') };
+	}
 };
 
-const logger = winston.createLogger(getWinstonOptions(config.get('enableFileLogging')));
+const logger = winston.createLogger(getWinstonOptions(config.get('fileLoggingLevel')));
 
 /**
  * Reconfigures winston logger with worker(if exists)
  * @param {*} worker
  */
 export function setupWinston(worker) {
-	if (worker) logger.configure(getWinstonOptions(config.get('enableFileLogging'), worker));
+	if (worker) logger.configure(getWinstonOptions(config.get('fileLoggingLevel'), worker));
 }
 
 export default logger;
