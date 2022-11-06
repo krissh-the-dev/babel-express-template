@@ -1,4 +1,4 @@
 module.exports = {
-	loggingLevel: 'silly',
+	consoleLoggingLevel: 'silly',
 	logRequests: true
 };

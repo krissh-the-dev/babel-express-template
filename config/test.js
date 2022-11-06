@@ -1,5 +1,5 @@
 module.exports = {
-	loggingLevel: 'error',
+	consoleLoggingLevel: 'error',
 	logRequests: false,
 	serveDocument: false,
 	enableClustering: false,

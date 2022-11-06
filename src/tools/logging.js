@@ -57,7 +57,7 @@ const fileLogTransport = (filename, level) => {
  * @returns {{transports: Array, exceptionHandlers: Array, rejectionHandlers: Array}}
  */
 const getWinstonOptions = (fileLoggingLevel, worker) => {
-	const DEFAULT_CONFIG = { level: config.get('loggingLevel') };
+	const DEFAULT_CONFIG = { level: config.get('consoleLoggingLevel') };
 	const VERBOSE_CONFIG = {
 		transports: [prettyConsoleTransport(worker), fileLogTransport('logs/verbose.log', 'verbose')]
 	};
@@ -88,7 +88,7 @@ const getWinstonOptions = (fileLoggingLevel, worker) => {
 
 		case FileLogLevels.OFF:
 		default:
-			return { level: config.get('loggingLevel') };
+			return { level: config.get('consoleLoggingLevel') };
 	}
 };
 
