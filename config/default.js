@@ -2,7 +2,8 @@ module.exports = {
 	host: '127.0.0.1',
 	port: 5000,
 	serveDocument: true,
-	enableClustering: false
+	enableClustering: false,
+	enableFileLogging: true
 };
 
 /*

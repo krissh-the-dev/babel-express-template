@@ -51,11 +51,11 @@ const fileLogTransport = (filename, level) => {
 
 /**
  * Get winston configs and transports based on environment
- * @param {string} environment
+ * @param {boolean} isFileLoggingEnabled
  * @param {*} worker
  * @returns {{transports: Array, exceptionHandlers: Array, rejectionHandlers: Array}}
  */
-const getWinstonOptions = (environment, worker) => {
+const getWinstonOptions = (isFileLoggingEnabled, worker) => {
 	let winstonConfigs = {
 		transports: [prettyConsoleTransport(worker), fileLogTransport('logs/verbose.log', 'verbose')],
 		exceptionHandlers: [
@@ -68,7 +68,7 @@ const getWinstonOptions = (environment, worker) => {
 		]
 	};
 
-	if (environment !== 'production') {
+	if (!isFileLoggingEnabled) {
 		// pop out file transports, log only on console
 		for (const configProp of Object.keys(winstonConfigs)) {
 			winstonConfigs[configProp].pop();
@@ -78,14 +78,14 @@ const getWinstonOptions = (environment, worker) => {
 	return { level: config.get('loggingLevel'), ...winstonConfigs };
 };
 
-const logger = winston.createLogger(getWinstonOptions(config.util.getEnv('NODE_ENV')));
+const logger = winston.createLogger(getWinstonOptions(config.get('enableFileLogging')));
 
 /**
  * Reconfigures winston logger with worker(if exists)
  * @param {*} worker
  */
 export function setupWinston(worker) {
-	if (worker) logger.configure(getWinstonOptions(config.util.getEnv('NODE_ENV'), worker));
+	if (worker) logger.configure(getWinstonOptions(config.get('enableFileLogging'), worker));
 }
 
 export default logger;
