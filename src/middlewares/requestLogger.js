@@ -68,15 +68,15 @@ function colorizeStatusCodes(statusCode) {
 
 	let colorizedStatus;
 	if (statusCode < 200) {
-		colorizedStatus = pc.gray.bold(statusCode);
+		colorizedStatus = pc.gray(pc.bold(statusCode));
 	} else if (statusCode < 300) {
-		colorizedStatus = pc.green.bold(statusCode);
+		colorizedStatus = pc.green(pc.bold(statusCode));
 	} else if (statusCode < 400) {
-		colorizedStatus = pc.cyan.bold(statusCode);
+		colorizedStatus = pc.cyan(pc.bold(statusCode));
 	} else if (statusCode < 500) {
-		colorizedStatus = pc.yellow.bold(statusCode);
+		colorizedStatus = pc.yellow(pc.bold(statusCode));
 	} else {
-		colorizedStatus = pc.red.bold(statusCode);
+		colorizedStatus = pc.red(pc.bold(statusCode));
 	}
 	return colorizedStatus;
 }

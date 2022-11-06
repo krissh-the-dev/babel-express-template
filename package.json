@@ -4,9 +4,7 @@
 	"description": "This is the backend of my-app",
 	"main": "build/index.js",
 	"module": "src/index.js",
-	"requiredVariables": [
-		"SAMPLE"
-	],
+	"requiredVariables": [],
 	"scripts": {
 		"build": "babel src --out-dir build",
 		"debug": "nodemon --inspect --exec babel-node src/index.js",
