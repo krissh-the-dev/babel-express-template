@@ -1,4 +1,5 @@
 module.exports = {
+	logRequests: false,
 	consoleLoggingLevel: 'info',
-	logRequests: false
+	fileLoggingLevel: 'error'
 };
